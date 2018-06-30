@@ -52,10 +52,15 @@ for i=1:m,
   YY(y(i),i)=1;
 end
 
-keyboard;
 % now use YY to calculate J
 
+regTheta1 = Theta1(:, 2:end)
+regTheta2 = Theta2(:, 2:end)
+
+reg = lambda/(2 * m) * (sum(sum(regTheta1 .^ 2)) + sum(sum(regTheta2 .^ 2)))
+
 J = (-1/m) * sum(sum((YY) .* log(h) + (1-YY) .* log(1-h)));
+J = J + reg
 
 
 %
@@ -74,6 +79,11 @@ J = (-1/m) * sum(sum((YY) .* log(h) + (1-YY) .* log(1-h)));
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+
+
+
+
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
