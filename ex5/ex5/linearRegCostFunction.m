@@ -20,14 +20,17 @@ grad = zeros(size(theta));
 %
 
 
+y_imitator = X * theta;
+error = (y_imitator - y) .^ 2;
+theta_reg = theta(2:end, :);
+cost_reg = lambda/(2 * m) * sum((theta_reg) .^2);
+J = (1/(2 * m) * sum(error)) + cost_reg;
 
-
-
-
-
-
-
-
+grad = X' * (y_imitator -y)/m;
+theta_grad_reg = theta;
+theta_grad_reg(1,1) = 0;
+grad_reg = lambda/m * theta_grad_reg;
+grad += grad_reg;
 
 
 % =========================================================================
